@@ -9,7 +9,7 @@ TIMESTAMP_START=$(date)
 USER_ID=$(id -u)
 
 # &>> this command will append all the outputs to the log
-
+mkdir /var/log/shellscript-logs
 LOGS_FOLDER="/var/log/shellscript-logs"
 LOG_FILE=$(echo $0 | cut -d "." -f1 )
 TIMESTAMP=$(date +%Y-%m-%d_%H:%M:%S)
