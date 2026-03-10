@@ -3,10 +3,10 @@
 TIMESTAMP_START=$(date)
 USER_ID=$(id -u)
 
-W=e\[0m #WHITE
-R=e\[31m #RED
-G=e\[32m #GREEN
-Y=e\[33m #YELLOW
+W="\e[0m" #WHITE
+R="\e[31m" #RED
+G="\e[32m" #GREEN
+Y="\e[33m" #YELLOW
 
 if [ $USER_ID -ne 0 ]
 then  
