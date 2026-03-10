@@ -9,6 +9,9 @@ echo "USERNAME entered : $USERNAME"
 echo "Please enter your password :"
 read -s PASSWORD
 
+#If we are comparing the strings use "==" for equal and "!=" for not equal
+
+
 if [ $DBUSERNAME == $USERNAME ]
 then
     if [ $DBPASSWORD -eq $PASSWORD ]
