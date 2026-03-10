@@ -25,9 +25,9 @@ else
     dnf install mysql -y
     if [ $? -eq 0 ]
     then 
-        echo "Mysql .... installed successfully" 
+        echo -e "Mysql .... installed successfully" 
     else    
-        echo "$R ERROR$W:: Mysql .... installed $R Failure$W"
+        echo -e "$R ERROR$W:: Mysql .... installed $R Failure$W"
         exit 1
     fi
 fi  
@@ -36,14 +36,14 @@ dnf list installed git
 
 if [ $? -eq 0 ]
 then 
-    echo "$Y INFORMATION$W:: Git .... already installed" 
+    echo -e "$Y INFORMATION$W:: Git .... already installed" 
 else
     dnf install git -y
     if [ $? -eq 0 ]
     then 
-        echo "Git .... installed $G successfully $W" 
+        echo -e "Git .... installed $G successfully $W" 
     else    
-        echo "$R ERROR$W:: Git .... installed $R Failure $W"
+        echo -e "$R ERROR$W:: Git .... installed $R Failure $W"
         exit 1
     fi
 fi  
