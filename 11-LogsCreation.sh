@@ -43,4 +43,4 @@ else
 fi
 
 VALIDATE mysql
-VALIDATE git
+VALIDATE nginx
