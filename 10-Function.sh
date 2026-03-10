@@ -12,12 +12,12 @@ VALIDATE () {
 
     dnf list installed $1
 
-if [ $2 -eq 0 ]
+if [ $? -eq 0 ]
 then 
     echo -e "$Y INFORMATION$W:: $1 .... already installed" 
 else
     dnf install $1 -y
-    if [ $2 -eq 0 ]
+    if [ $? -eq 0 ]
     then 
         echo -e "$1 .... installed successfully" 
     else    
@@ -35,5 +35,5 @@ else
         echo "$USER user started executing the script at : $TIMESTAMP_START"
 fi
 
-VALIDATE mysql $?
-VALIDATE git $?
+VALIDATE mysql
+VALIDATE git
