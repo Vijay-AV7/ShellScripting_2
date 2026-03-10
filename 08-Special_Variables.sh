@@ -9,3 +9,4 @@ echo "Which user is running this script: $USER"
 echo "Process id of current script: $$"
 sleep 60 &
 echo "Process id of last command in background: $!"
+echo "Exit status of the last executed command if it succeed returns 0 else failed returns other than 0 : $?"
