@@ -19,9 +19,9 @@ read -s PASSWORD
 
 if [ -n "$USERNAME" ]
 then
-    if [ $DBUSERNAME == $USERNAME ]
+    if [ "$DBUSERNAME" == "$USERNAME" ]
     then
-        if [ $DBPASSWORD -eq $PASSWORD ]
+        if [ "$DBPASSWORD" -eq "$PASSWORD" ]
         then
             echo "Log in successful ...."
         else
