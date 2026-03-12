@@ -8,5 +8,5 @@ LOGNAME=$(touch "$LOGDIR/$FILENAME_TIMESTAMP.log")
 
 echo $LOGNAME
 cd $LOGDIR
-LIST=$(ls -l)
-$LIST
+ls -l
+
