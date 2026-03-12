@@ -17,7 +17,7 @@ read -s PASSWORD
 # -z STRING → true if string is empty
 # -n STRING → true if string is not empty
 
-if [ -n "$USERNAME" ]
+if [ -n "$USERNAME" ] 
 then
     if [ "$DBUSERNAME" == "$USERNAME" ]
     then

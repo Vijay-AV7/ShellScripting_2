@@ -2,7 +2,7 @@
 
 NAME1=$1
 NAME2=$2
-
+#Arguments are run time variables.
 echo "$NAME1:: Hi $NAME2"
 echo "$NAME2:: Hello $NAME1"
 echo "$NAME1:: How are you doing?"
