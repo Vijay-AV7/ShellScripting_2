@@ -3,9 +3,9 @@
 TIMESTAMP=$(date)
 mkdir -p /var/logs/shellscript_logs
 LOGDIR=/var/logs/shellscript_logs
-FILENAME=$($0 | cut -d "." -f1)
+FILENAME=($0 | cut -d "." -f1)
 LOGNAME=$(touch $LOGDIR/$FILENAME_TIMESTAMP.log)
 
 echo $LOGNAME
 cd $LOGDIR
-ll
+$(ll)
