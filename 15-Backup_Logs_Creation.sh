@@ -1,7 +1,23 @@
 #!/bin/bash
 
-SOURCE_DIR="/var/log/shellscript_logs"
-ARCHIVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
+/var/log/shellscript_logs
+/home/ec2-user/archieve_logs
+
+SOURCE_DIR=$1
+ARCHIVE_DIR=$2 #Destination directory for Backup logs and all logs are zipped
+
+DIRECTORY_CHECK $SOURCE_DIR "Source directory"
+DIRECTORY_CHECK $ARCHIVE_DIR "Archieve directory"
+
+DIRECTORY_CHECK (){
+if [ -n $1 ]
+then
+    echo "$2 is loaded .... successfully"
+else
+    echo "echo "$2 is not valid .... failed""
+    exit 1
+fi
+}
 
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
 mkdir -p $SOURCE_DIR
