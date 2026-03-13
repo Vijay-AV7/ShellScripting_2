@@ -9,7 +9,9 @@ mkdir -p $ARCIEVE_DIR
 
 FILENAME=$(echo $0 | cut -d "." -f1 )
 echo "Log file name is : $FILENAME"
-LOG_FILENAME="$SOURCE_DIR/$FILENAME_$TIMESTAMP.log"
+NAME=$FILENAME_$TIMESTAMP
+echo "Log file name with time stamp is : $NAME"
+LOG_FILENAME="$SOURCE_DIR/$NAME.log"
 #echo "Log file name is : $LOG_FILENAME" 
 
 ROOT_USER=$(id -u)
