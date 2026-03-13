@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_DIR="/var/log/shellscript_logs"
+SOURCE_DIR="/var/log/shellscript-logs"
 ARCIEVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
 
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
@@ -8,7 +8,7 @@ mkdir -p $SOURCE_DIR
 mkdir -p $ARCIEVE_DIR
 
 FILENAME=$(echo $0 | cut -d "." -f1 )
-LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log"
+LOG_FILENAME="$SOURCE_DIR/$FILENAME"-"$TIMESTAMP.log"
 echo "Log file name is : $LOG_FILENAME" 
 
 ROOT_USER=$(id -u)
