@@ -44,7 +44,7 @@ for i in $OLDFILES_MOVE_TO_ARCIEVE
 do
     echo "File to be deleted : $i"
     echo "File to be deleted : $i" &>>$LOG_FILENAME
-    rm -rf "$i"
+    # rm -rf "$i"
 done 
 
 
