@@ -1,16 +1,16 @@
 #!/bin/bash
 
 SOURCE_DIR="/var/log/shellscript_logs"
-ARCIEVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
+ARCHIVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
 
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
 mkdir -p $SOURCE_DIR
-mkdir -p $ARCIEVE_DIR
+mkdir -p $ARCHIVE_DIR
 
 FILENAME=$(echo $0 | cut -d "." -f1 )
 LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log" 
-ZIP_FILENAME="$ARCIEVE_DIR/"Backup_"$FILENAME"_"$TIMESTAMP.log"
-ROOT_USER=$(id)
+ZIP_FILENAME="$ARCHIVE_DIR/"Backup_"$FILENAME"_"$TIMESTAMP.zip"
+ROOT_USER=$(id -u)
 if [ $? -eq 0 ]
 then
     echo "Root user is executing the script at $TIMESTAMP" &>>$LOG_FILENAME # "&>>"" this command will create the file if not exists and append the data
@@ -45,51 +45,20 @@ else
 fi
 }
 
-OLDFILES_MOVE_TO_ARCIEVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
-echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE" &>>$LOG_FILENAME
-echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE"
+OLDFILES_MOVE_TO_ARCHIVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
+echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
 
 INSTALL_VALIDATE zip
 
-if [ ! -n "$OLDFILES_MOVE_TO_ARCIEVE" ] # true if there are files to zip
+if [ -n "$OLDFILES_MOVE_TO_ARCHIVE" ] # if variable is non‑empty then true to zip files
 then
+    zip "$ZIP_FILENAME" $OLDFILES_MOVE_TO_ARCHIVE &>>$LOG_FILENAME
+    VALIDATE $? "Zipping the files in $ARCHIVE_DIR"
+    echo "File to be deleted : $OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
+    rm -rf "$OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
+    VALIDATE $? "Deleting files from $SOURCE_DIR"
+else
     echo "Error:: No files found to take back up "
     exit 1
-else
-    for i in $OLDFILES_MOVE_TO_ARCIEVE
-    do
-        echo "File to be deleted : $i"
-        echo "File to be deleted : $i" &>>$LOG_FILENAME
-        cp "$SOURCE_DIR/$i" "$ARCIEVE_DIR" &>>$LOG_FILENAME
-        VALIDATE $? "Copying files from $SOURCE_DIR to $ARCIEVE_DIR"
-        rm -rf "$i" &>>$LOG_FILENAME
-        VALIDATE $? "Deleting files from $SOURCE_DIR"
-        Zip $i "$ZIP_FILENAME" &>>$LOG_FILENAME
-        VALIDATE $? "Zipping the files in $ARCIEVE_DIR"
-    done
+
 fi
-
-
-
-# BACKUP_LOGFILENAME="$ARCIEVE_DIR/backup_$OLDFILES_MOVE_TO_ARCIEVE_$TIMESTAMP.log"
-# cp "$SOURCE_DIR/$OLDFILES_MOVE_TO_ARCIEVE" "$ARCIEVE_DIR"
-# rm -rf "$SOURCE_DIR/$OLDFILES_MOVE_TO_ARCIEVE"
-# if [ $? -eq 0 ]
-# then
-#     echo "Files removed from"
-# else
-#     echo "Files removed from"
-#     exit 1
-# fi
-
-
-#zip $ARCIEVE_DIR/* $BACKUP_LOGFILENAME
-
-#while read -r line
-#do
-#    echo "$line"
-#done <<< $OLDFILES
-
- 
-
-
