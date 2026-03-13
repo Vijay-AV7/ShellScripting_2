@@ -1,7 +1,7 @@
 #!/bin/bash
 
-/var/log/shellscript_logs
-/home/ec2-user/archieve_logs
+# /var/log/shellscript_logs
+# /home/ec2-user/archieve_logs
 
 SOURCE_DIR=$1
 ARCHIVE_DIR=$2 #Destination directory for Backup logs and all logs are zipped
