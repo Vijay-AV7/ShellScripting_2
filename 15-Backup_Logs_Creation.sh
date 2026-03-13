@@ -37,7 +37,6 @@ fi
 }
 
 OLDFILES_MOVE_TO_ARCIEVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
-echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE"
 echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE" &>>$LOG_FILENAME
 
 for i in $OLDFILES_MOVE_TO_ARCIEVE
