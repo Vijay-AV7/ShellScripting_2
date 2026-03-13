@@ -9,7 +9,7 @@ mkdir -p $ARCIEVE_DIR
 
 FILENAME=$(echo $0 | cut -d "." -f1 )
 LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log" 
-
+ZIP_FILENAME="$ARCIEVE_DIR/"Backup_"$FILENAME"_"$TIMESTAMP.log"
 ROOT_USER=$(id)
 if [ $? -eq 0 ]
 then
@@ -29,21 +29,44 @@ else
     then
         echo "$1 installation .... successful"
     else
-        echo " .$1 installation .... failure"
+        echo "ERROR::$1 installation .... failure"
         exit 1
     fi
 fi 
 }
 
+VALIDATE (){}
+if [ $1 -eq 0 ]
+then
+    echo "$2 .... successful"
+else
+    echo "ERROR:: $2 .... failed"
+    exit 1
+fi
+}
+
 OLDFILES_MOVE_TO_ARCIEVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
 echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE" &>>$LOG_FILENAME
 
-for i in $OLDFILES_MOVE_TO_ARCIEVE
-do
-    echo "File to be deleted : $i"
-    echo "File to be deleted : $i" &>>$LOG_FILENAME
-    # rm -rf "$i"
-done 
+INSTALL_VALIDATE zip
+
+if [ -n "$FILES" ] # true if there are files to zip
+then
+    for i in $OLDFILES_MOVE_TO_ARCIEVE
+    do
+        echo "File to be deleted : $i"
+        echo "File to be deleted : $i" &>>$LOG_FILENAME
+        cp "$SOURCE_DIR/$i" "$ARCIEVE_DIR" &>>$LOG_FILENAME
+        VALIDATE $? "Copying files from $SOURCE_DIR to $ARCIEVE_DIR"
+        rm -rf "$i"
+        VALIDATE $? "Deleting files from $SOURCE_DIR"
+        Zip $i "$ZIP_FILENAME"
+        VALIDATE $? "Zipping the files in $ARCIEVE_DIR"
+    done
+else
+    echo "Error:: No files found to take back up "
+    exit 1
+fi
 
 
 
@@ -58,7 +81,7 @@ done
 #     exit 1
 # fi
 
-#INSTALL_VALIDATE zip
+
 #zip $ARCIEVE_DIR/* $BACKUP_LOGFILENAME
 
 #while read -r line
