@@ -57,6 +57,7 @@ then
     for i in $OLDFILES_MOVE_TO_ARCHIVE
     do
         echo "File to be deleted : $i" &>>$LOG_FILENAME
+        echo "File to be deleted : $i"
         rm -rf "$i" &>>$LOG_FILENAME
         VALIDATE $? "Deleting files from $SOURCE_DIR"
     done
