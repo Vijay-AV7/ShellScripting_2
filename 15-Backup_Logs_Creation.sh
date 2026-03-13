@@ -1,20 +1,23 @@
 #!/bin/bash
 
-TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
-mkdir -p /var/log/shellscript_logs
 SOURCE_DIR="/var/log/shellscript_logs"
-FILENAME=$(echo $0 | cut -d "." -f1 )
-LOG_FILENAME="$SOURCE_DIR/$FILENAME_$TIMESTAMP.log"
-echo "Log file name is : $LOG_FILENAME" 
-
 ARCIEVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
+
+TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
+mkdir -p $SOURCE_DIR
+mkdir -p $ARCIEVE_DIR
+
+FILENAME=$(echo $0 | cut -d "." -f1 )
+echo "Log file name is : $FILENAME"
+LOG_FILENAME="$SOURCE_DIR/$FILENAME_$TIMESTAMP.log"
+#echo "Log file name is : $LOG_FILENAME" 
 
 ROOT_USER=$(id -u)
 if [ $? -eq 0 ]
 then
-    echo "Root user is executing the script at $TIMESTAMP"
+    echo "Root user is executing the script at $TIMESTAMP" &>>$LOG_FILENAME
 else
-    echo "Root acccess is required to execute this script"
+    echo "Root acccess is required to execute this script" &>>$LOG_FILENAME
     exit 1
 fi
 
