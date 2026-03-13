@@ -56,9 +56,9 @@ then
     VALIDATE $? "Zipping the files in $ARCHIVE_DIR"
     for i in $OLDFILES_MOVE_TO_ARCHIVE
     do
-    rm -rf "$1" &>>$LOG_FILENAME
-    echo "File to be deleted : $1" &>>$LOG_FILENAME
-    VALIDATE $? "Deleting files from $SOURCE_DIR"
+        echo "File to be deleted : $i" &>>$LOG_FILENAME
+        rm -rf "$i" &>>$LOG_FILENAME
+        VALIDATE $? "Deleting files from $SOURCE_DIR"
     done
 else
     echo "Error:: No files found to take back up "
