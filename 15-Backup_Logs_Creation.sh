@@ -3,7 +3,7 @@
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
 mkdir -p /var/log/shellscript_logs
 SOURCE_DIR="/var/log/shellscript_logs"
-FILENAME=$(echo $0 | cut -d "." -f1)
+FILENAME=$(echo $0 | cut -d "." -f1 )
 LOG_FILENAME="$SOURCE_DIR/$FILENAME_$TIMESTAMP.log"
 echo "Log file name is : $LOG_FILENAME" 
 
