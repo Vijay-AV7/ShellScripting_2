@@ -54,11 +54,13 @@ if [ -n "$OLDFILES_MOVE_TO_ARCHIVE" ] # if variable is non‑empty then true to 
 then
     zip "$ZIP_FILENAME" $OLDFILES_MOVE_TO_ARCHIVE &>>$LOG_FILENAME
     VALIDATE $? "Zipping the files in $ARCHIVE_DIR"
-    echo "File to be deleted : $OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
-    rm -rf "$OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
+    for i in $OLDFILES_MOVE_TO_ARCHIVE
+    do
+    rm -rf "$1" &>>$LOG_FILENAME
+    echo "File to be deleted : $1" &>>$LOG_FILENAME
     VALIDATE $? "Deleting files from $SOURCE_DIR"
+    done
 else
     echo "Error:: No files found to take back up "
     exit 1
-
 fi
