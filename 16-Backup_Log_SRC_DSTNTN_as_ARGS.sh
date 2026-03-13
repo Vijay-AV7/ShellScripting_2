@@ -1,10 +1,14 @@
 #!/bin/bash
 
-SOURCE_DIR="/var/log/shellscript_logs"
-ARCHIVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
+# /var/log/shellscript_logs
+# /home/ec2-user/archieve_logs
+
+SOURCE_DIR=$1
+ARCHIVE_DIR=$2 #Destination directory for Backup logs and all logs are zipped
+DAYS=${3:-14} # if user is not providing number of days, we are taking 14 as default
 
 DIRECTORY_CHECK (){
-if [ -n $1 ]
+if [ -n $1 ] || [ -d $1 ]
 then
     echo "$2 is loaded .... successfully"
 else
@@ -12,6 +16,19 @@ else
     exit 1
 fi
 }
+
+USAGE(){
+    echo -e "USAGE:: backup <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
+    exit 1
+}
+
+if [ $# -lt 2 ]
+then
+    USAGE
+fi
+
+DIRECTORY_CHECK $SOURCE_DIR "Source directory"
+DIRECTORY_CHECK $ARCHIVE_DIR "Archieve directory"
 
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
 mkdir -p $SOURCE_DIR
@@ -55,7 +72,7 @@ else
 fi
 }
 
-OLDFILES_MOVE_TO_ARCHIVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
+OLDFILES_MOVE_TO_ARCHIVE=$( find "$SOURCE_DIR" -name "*.log" -mtime +$DAYS) #-mtime +1
 echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
 
 INSTALL_VALIDATE zip
