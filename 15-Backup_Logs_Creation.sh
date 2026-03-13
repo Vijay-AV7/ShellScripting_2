@@ -47,6 +47,7 @@ fi
 
 OLDFILES_MOVE_TO_ARCIEVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
 echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE" &>>$LOG_FILENAME
+echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE"
 
 INSTALL_VALIDATE zip
 
@@ -61,9 +62,9 @@ else
         echo "File to be deleted : $i" &>>$LOG_FILENAME
         cp "$SOURCE_DIR/$i" "$ARCIEVE_DIR" &>>$LOG_FILENAME
         VALIDATE $? "Copying files from $SOURCE_DIR to $ARCIEVE_DIR"
-        rm -rf "$i"
+        rm -rf "$i" &>>$LOG_FILENAME
         VALIDATE $? "Deleting files from $SOURCE_DIR"
-        Zip $i "$ZIP_FILENAME"
+        Zip $i "$ZIP_FILENAME" &>>$LOG_FILENAME
         VALIDATE $? "Zipping the files in $ARCIEVE_DIR"
     done
 fi
