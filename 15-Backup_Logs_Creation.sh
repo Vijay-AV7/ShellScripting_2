@@ -1,17 +1,24 @@
 #!/bin/bash
 
-TIMESTAMP=$(date +%Y/%m/%d_%H_%M_%S)
+TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
 mkdir -p /var/log/shellscript_logs
-LOGDIR="/var/log/shellscript_logs"
+SOURCE_DIR="/var/log/shellscript_logs"
 FILENAME=$(echo $0 | cut -d "." -f1)
-LOG_FILENAME="$LOGDIR/$FILENAME_$TIMESTAMP.log"
+LOG_FILENAME="$SOURCE_DIR/$FILENAME_$TIMESTAMP.log"
 echo "Log file name is : $LOG_FILENAME" 
 
-SOURCE_DIR=$LOGDIR
-ARCIEVE_DIR="/home/ec2-user/archieve_logs"
+ARCIEVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
+
+ROOT_USER=$(id -u)
+if [ $? -eq 0 ]
+then
+    echo "Root user is executing the script at $TIMESTAMP"
+else
+    echo "Root acccess is required to execute this script"
+    exit 1
+fi
 
 INSTALL_VALIDATE () {
-
 dnf list installed $1 &>>$LOG_FILENAME
 if [ $? -eq 0 ]
 then
@@ -28,6 +35,32 @@ else
 fi 
 }
 
-INSTALL_VALIDATE mysql 
+OLDFILES_MOVE_TO_ARCIEVE=$(find "$SOURCE_DIR" -name "*.log") #-mtime +1
+echo "$OLDFILES_MOVE_TO_ARCIEVE"
+
+BACKUP_LOGFILENAME="$ARCIEVE_DIR/backup_$OLDFILES_MOVE_TO_ARCIEVE_$TIMESTAMP.log"
+
+cp "$SOURCE_DIR/$OLDFILES_MOVE_TO_ARCIEVE" "$ARCIEVE_DIR"
+
+
+rm -rf "$SOURCE_DIR/$OLDFILES_MOVE_TO_ARCIEVE"
+
+if [ $? -eq 0 ]
+then
+    echo "Files removed from"
+else
+    echo "Files removed from"
+    exit 1
+fi
+
+#INSTALL_VALIDATE zip
+#zip $ARCIEVE_DIR/* $BACKUP_LOGFILENAME
+
+#while read -r line
+#do
+#    echo "$line"
+#done <<< $OLDFILES
+
+ 
 
 
