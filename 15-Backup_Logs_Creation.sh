@@ -11,13 +11,12 @@ FILENAME=$(echo $0 | cut -d "." -f1 )
 LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log"
 echo "Log file name is : $LOG_FILENAME" 
 
-ROOT_USER=$(id -u)
+ROOT_USER=$(id)
 if [ $? -eq 0 ]
 then
     echo "Root user is executing the script at $TIMESTAMP" &>>$LOG_FILENAME # "&>>"" this command will create the file if not exists and append the data
 else
     echo "Root acccess is required to execute this script" &>>$LOG_FILENAME
-    exit 1
 fi
 
 INSTALL_VALIDATE () {
@@ -37,7 +36,7 @@ else
 fi 
 }
 
-OLDFILES_MOVE_TO_ARCIEVE=$(find "$SOURCE_DIR" -name "*.log") #-mtime +1
+OLDFILES_MOVE_TO_ARCIEVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
 echo "$OLDFILES_MOVE_TO_ARCIEVE"
 
 # BACKUP_LOGFILENAME="$ARCIEVE_DIR/backup_$OLDFILES_MOVE_TO_ARCIEVE_$TIMESTAMP.log"
