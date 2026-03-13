@@ -35,7 +35,7 @@ else
 fi 
 }
 
-VALIDATE (){}
+VALIDATE (){
 if [ $1 -eq 0 ]
 then
     echo "$2 .... successful"
