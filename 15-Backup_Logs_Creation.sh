@@ -8,8 +8,7 @@ mkdir -p $SOURCE_DIR
 mkdir -p $ARCIEVE_DIR
 
 FILENAME=$(echo $0 | cut -d "." -f1 )
-LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log"
-echo "Log file name is : $LOG_FILENAME" 
+LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log" 
 
 ROOT_USER=$(id)
 if [ $? -eq 0 ]
