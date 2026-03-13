@@ -50,8 +50,11 @@ echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCIEVE" &>>$LOG_FILENAME
 
 INSTALL_VALIDATE zip
 
-if [ -n "$FILES" ] # true if there are files to zip
+if [ ! -n "$FILES" ] # true if there are files to zip
 then
+    echo "Error:: No files found to take back up "
+    exit 1
+else
     for i in $OLDFILES_MOVE_TO_ARCIEVE
     do
         echo "File to be deleted : $i"
@@ -63,9 +66,6 @@ then
         Zip $i "$ZIP_FILENAME"
         VALIDATE $? "Zipping the files in $ARCIEVE_DIR"
     done
-else
-    echo "Error:: No files found to take back up "
-    exit 1
 fi
 
 
