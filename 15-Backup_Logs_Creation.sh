@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_DIR="/var/log/shellscript-logs"
+SOURCE_DIR="/var/log/shellscript_logs"
 ARCIEVE_DIR="/home/ec2-user/archieve_logs" #Destination directory for Backup logs and all logs are zipped
 
 TIMESTAMP=$(date +%Y_%m_%d_%H_%M_%S)
@@ -37,7 +37,15 @@ fi
 }
 
 OLDFILES_MOVE_TO_ARCIEVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
-echo "$OLDFILES_MOVE_TO_ARCIEVE"
+
+
+for i in Arcieve
+do
+    echo "File to be deleted : $Arcieve"
+    rm -rf "$Arcieve"
+done <<< $OLDFILES_MOVE_TO_ARCIEVE
+
+
 
 # BACKUP_LOGFILENAME="$ARCIEVE_DIR/backup_$OLDFILES_MOVE_TO_ARCIEVE_$TIMESTAMP.log"
 # cp "$SOURCE_DIR/$OLDFILES_MOVE_TO_ARCIEVE" "$ARCIEVE_DIR"
