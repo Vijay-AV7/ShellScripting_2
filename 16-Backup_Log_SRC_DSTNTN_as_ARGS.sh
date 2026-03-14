@@ -35,7 +35,7 @@ mkdir -p $SOURCE_DIR
 mkdir -p $ARCHIVE_DIR
 
 # FILENAME=$(echo $0 | cut -d "." -f1 ) When runnin through sh command the file has .sh extention and name will extract clearly
-FILENAME=$(basename $0) #when running as a command then take base name
+FILENAME="16_SCRIPT" #when running as a command then take base name
 LOG_FILENAME="$SOURCE_DIR/$FILENAME"_"$TIMESTAMP.log" 
 ZIP_FILENAME="$ARCHIVE_DIR/"Backup_"$FILENAME"_"$TIMESTAMP.zip"
 ROOT_USER=$(id -u)
