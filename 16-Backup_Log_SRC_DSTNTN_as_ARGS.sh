@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # /var/log/shellscript_logs
-# /home/ec2-user/archieve_logs
+# /home/ec2-user/archieve_14MAR
 
 SOURCE_DIR=$1
 ARCHIVE_DIR=$2 #Destination directory for Backup logs and all logs are zipped
@@ -72,7 +72,7 @@ else
 fi
 }
 
-OLDFILES_MOVE_TO_ARCHIVE=$( find "$SOURCE_DIR" -name "*.log" -mtime +$DAYS) #-mtime +1
+OLDFILES_MOVE_TO_ARCHIVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
 echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
 
 INSTALL_VALIDATE zip
