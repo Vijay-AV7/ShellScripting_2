@@ -72,6 +72,11 @@ else
 fi
 }
 
+for i in {0..7}
+do
+    touch $LOG_FILENAME
+done
+
 OLDFILES_MOVE_TO_ARCHIVE=$( find "$SOURCE_DIR" -name "*.log" ) #-mtime +1
 echo "Files to be deleted : $OLDFILES_MOVE_TO_ARCHIVE" &>>$LOG_FILENAME
 
